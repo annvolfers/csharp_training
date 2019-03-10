@@ -31,6 +31,8 @@ namespace WebAddressbookTests
         
         public void ReturnToHomePage()
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            IWebElement element = driver.FindElement(By.LinkText("home"));
             driver.FindElement(By.LinkText("home")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
         }

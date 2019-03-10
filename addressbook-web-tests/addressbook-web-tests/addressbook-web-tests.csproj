@@ -73,6 +73,8 @@
     <Compile Include="firsttest\Figure.cs" />
     <Compile Include="model\GroupDate.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\ContactModificationTests.cs" />
+    <Compile Include="tests\ContactRemovalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
