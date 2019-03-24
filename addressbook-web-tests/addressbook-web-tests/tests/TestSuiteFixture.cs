@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +7,13 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    public class TestBase
+    [SetUpFixture]
+    public class TestSuiteFixture
     {
-        protected ApplicationManager app;
-
         [SetUp]
-        public void SetupApplicationManager()
+        public void InitApplicationManager()
         {
-            app = ApplicationManager.GetInstance();
+            ApplicationManager app = ApplicationManager.GetInstance();
         }
     }
-}
+}*/

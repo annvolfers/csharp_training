@@ -65,6 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="firsttest\UnitTest2.cs" />
     <Compile Include="model\AccountDate.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="firsttest\Circle.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="firsttest\Figure.cs" />
     <Compile Include="model\GroupDate.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
@@ -81,11 +83,13 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="firsttest\Square.cs" />
+    <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="firsttest\UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
+    <Compile Include="tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

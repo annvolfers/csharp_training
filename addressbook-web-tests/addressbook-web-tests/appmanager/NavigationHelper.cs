@@ -21,18 +21,31 @@ namespace WebAddressbookTests
 
         public void GoToHomePage()
         {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL);
         }
 
         public void GoToGroupsPage()
         {
+            if (driver.Url == baseURL + "/group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
         }
         
         public void ReturnToHomePage()
         {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            IWebElement element = driver.FindElement(By.LinkText("home"));
+            IWebElement element = driver.FindElement(By.CssSelector("div.msgbox"));
             driver.FindElement(By.LinkText("home")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
         }

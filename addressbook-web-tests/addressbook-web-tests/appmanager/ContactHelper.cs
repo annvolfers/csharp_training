@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -55,10 +54,8 @@ namespace WebAddressbookTests
 
         public ContactHelper FillContactForm(ContactDate contact)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.First_name);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Last_name);
+            Type(By.Name("firstname"), contact.First_name);
+            Type(By.Name("lastname"), contact.Last_name);
             return this;
         }
 
@@ -74,10 +71,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper GoToPageContactModification(string v)
+        private ContactHelper GoToPageContactModification(string index)
         {
-            string contacteditURL = "http://localhost/addressbook/edit.php?id=" + v;
-            driver.Navigate().GoToUrl(contacteditURL);
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
 
@@ -88,22 +84,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper SelectContactRemove(int v)
+        private ContactHelper SelectContactRemove(int index)
         {
-            int i = 1;
-            while (i == 1)
-            {
-                try
-                {
-                    string x = Convert.ToString(v);
-                    driver.FindElement(By.Id(x)).Click();
-                    i++;
-                }
-                catch
-                {
-                    v++;
-                }
-            }
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
     }
