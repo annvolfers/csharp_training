@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         {
             ContactDate newData = new ContactDate("eee", "rrr");
 
-            app.Contact.Modify("1", newData);
+            app.Contact.Modify(0, newData);
         }
     }
 }

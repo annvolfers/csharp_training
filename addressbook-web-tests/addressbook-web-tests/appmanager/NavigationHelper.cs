@@ -44,8 +44,6 @@ namespace WebAddressbookTests
             {
                 return;
             }
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            IWebElement element = driver.FindElement(By.CssSelector("div.msgbox"));
             driver.FindElement(By.LinkText("home")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
         }

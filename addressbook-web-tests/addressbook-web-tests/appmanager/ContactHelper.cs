@@ -27,7 +27,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(string v, ContactDate newData)
+        public ContactHelper Modify(int v, ContactDate newData)
         {
             manager.Navigator.GoToHomePage();
             GoToPageContactModification(v);
@@ -71,22 +71,24 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper GoToPageContactModification(string index)
+        private ContactHelper GoToPageContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
             return this;
         }
 
         private ContactHelper SubmitContactRemove()
         {
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            IWebElement element = driver.FindElement(By.CssSelector("div.msgbox"));
             return this;
         }
 
         private ContactHelper SelectContactRemove(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
     }

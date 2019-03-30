@@ -66,6 +66,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="firsttest\UnitTest2.cs" />
+    <Compile Include="firsttest\UnitTest3.cs" />
     <Compile Include="model\AccountDate.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="firsttest\Circle.cs" />
