@@ -76,6 +76,7 @@
     <Compile Include="model\GroupDate.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
+    <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="firsttest\Square.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\SearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="firsttest\UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
