@@ -62,12 +62,14 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -83,6 +85,7 @@ namespace WebAddressbookTests
             driver.SwitchTo().Alert().Accept();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             IWebElement element = driver.FindElement(By.CssSelector("div.msgbox"));
+            contactCache = null;
             return this;
         }
 
@@ -92,17 +95,42 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<ContactDate> contactCache = null;
+
         public List<ContactDate> GetContactList()
         {
-            List<ContactDate> contacts = new List<ContactDate>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                string[] words = element.Text.Split(new char[] { ' ' });
-                contacts.Add(new ContactDate(words[1], words[0]));
+                contactCache = new List<ContactDate>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    /*if (element.Text.Length > 0)
+                    {
+                        string[] words = element.Text.Split(new char[] { ' ' });
+                        contactCache.Add(new ContactDate(words[1], words[0]));
+                    }*/
+                    if (element.Text.Length > 0)
+                    {
+                        string[] words = element.Text.Split(new char[] { ' ' });
+                        contactCache.Add(new ContactDate(words[1], words[0])
+                        {
+                            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        });
+                    }
+                    else
+                    {
+                        contactCache.Add(new ContactDate("", ""));
+                    }
+                }
             }
-            return contacts;
+            return new List<ContactDate>(contactCache);
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count;
         }
     }
 }
