@@ -27,7 +27,7 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return first_name == other.First_name && last_name == other.Last_name;
+            return First_name == other.First_name && Last_name == other.Last_name;
         }
 
         public int GetHashCodeFirst_name()

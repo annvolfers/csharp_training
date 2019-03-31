@@ -45,7 +45,7 @@ namespace WebAddressbookTests
                 return;
             }
             driver.FindElement(By.LinkText("home")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
+            //driver.FindElement(By.LinkText("Logout")).Click();
         }
     }
 }

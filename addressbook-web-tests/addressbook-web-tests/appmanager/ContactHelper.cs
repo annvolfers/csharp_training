@@ -65,19 +65,19 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper SubmitContactModification()
+        public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
 
-        private ContactHelper GoToPageContactModification(int index)
+        public ContactHelper GoToPageContactModification(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
             return this;
         }
 
-        private ContactHelper SubmitContactRemove()
+        public ContactHelper SubmitContactRemove()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
@@ -86,10 +86,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private ContactHelper SelectContactRemove(int index)
+        public ContactHelper SelectContactRemove(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
+        }
+
+        public List<ContactDate> GetContactList()
+        {
+            List<ContactDate> contacts = new List<ContactDate>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                string[] words = element.Text.Split(new char[] { ' ' });
+                contacts.Add(new ContactDate(words[1], words[0]));
+            }
+            return contacts;
         }
     }
 }
