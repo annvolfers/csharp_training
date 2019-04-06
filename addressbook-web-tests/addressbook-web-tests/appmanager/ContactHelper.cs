@@ -165,8 +165,12 @@ namespace WebAddressbookTests
                     }*/
                     if (element.Text.Length > 0)
                     {
-                        string[] words = element.Text.Split(new char[] { ' ' });
-                        contactCache.Add(new ContactDate(words[1], words[0]) {
+                        string[] words = new string[element.FindElements(By.TagName("td")).Count];
+                        for (int i = 0; i < words.Length; i++)
+                        {
+                            words[i] = element.FindElements(By.TagName("td"))[i].Text;
+                        }
+                        contactCache.Add(new ContactDate(words[2], words[1]) {
                             Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                         });
                     }
