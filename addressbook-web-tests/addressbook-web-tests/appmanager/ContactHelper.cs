@@ -116,7 +116,6 @@ namespace WebAddressbookTests
                 AllPhones = allPhones,
                 AllEmails = allEmails
             };
-
         }
 
         public ContactDate GetContactInformationFromEditForm(int index)
@@ -146,6 +145,99 @@ namespace WebAddressbookTests
                 Email_2 = email_2,
                 Email_3 = email_3
             };
+        }
+
+        public string GetTextContactInformationFromViewForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+            string allInformaton = driver.FindElement(By.Id("content")).Text;
+            return allInformaton;
+        }
+
+        public string GetTextContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToPageContactModification(index);
+
+            string[] contact = new string[9];
+            for (int i = 0; i < contact.Length; i++)
+            {
+                contact[i] = "";
+            }
+            contact[0] = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            contact[1] = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            contact[2] = driver.FindElement(By.Name("address")).GetAttribute("value");
+            contact[3] = driver.FindElement(By.Name("home")).GetAttribute("value");
+            contact[4] = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            contact[5] = driver.FindElement(By.Name("work")).GetAttribute("value");
+            contact[6] = driver.FindElement(By.Name("email")).GetAttribute("value");
+            contact[7] = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            contact[8] = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string name = "";
+            string address = "";
+            string phones = "";
+            string emails = "";
+
+            if (contact[0].Length > 0 || contact[1].Length > 0)
+            {
+                if (contact[0].Length > 0 && contact[1].Length > 0)
+                {
+                    name += contact[0] + " " + contact[1];
+                }
+                else
+                {
+                    if (contact[0].Length > 0)
+                    {
+                        name += contact[0];
+                    }
+                    if (contact[1].Length > 0)
+                    {
+                        name += contact[1];
+                    }
+                }
+            }
+            if (contact[2].Length > 0)
+            {
+                address += "\r\n" + contact[2];
+            }
+            if (contact[3].Length > 0 || contact[4].Length > 0 || contact[5].Length > 0)
+            {
+                phones += "\r\n";
+                if (contact[3].Length > 0)
+                {
+                    phones += "\r\nH: " + contact[3];
+                }
+                if (contact[4].Length > 0)
+                {
+                    phones += "\r\nM: " + contact[4];
+                }
+                if (contact[5].Length > 0)
+                {
+                    phones += "\r\nW: " + contact[5];
+                }
+            }
+            if (contact[6].Length > 0 || contact[7].Length > 0 || contact[8].Length > 0)
+            {
+                emails += "\r\n";
+                if (contact[6].Length > 0)
+                {
+                    emails += "\r\n" + contact[6];
+                }
+                if (contact[7].Length > 0)
+                {
+                    emails += "\r\n" + contact[7];
+                }
+                if (contact[8].Length > 0)
+                {
+                    emails += "\r\n" + contact[8];
+                }
+            }
+            
+            return name + address + phones + emails;
         }
 
         public int GetNumberOfSearchResults()
