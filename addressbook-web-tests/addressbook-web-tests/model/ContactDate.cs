@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "first_name=" + First_name + " and " + "last_name=" + Last_name;
+            return "\nfirst_name=" + First_name + "\nlast_name=" + Last_name;
         }
 
         public int CompareTo(ContactDate other)
