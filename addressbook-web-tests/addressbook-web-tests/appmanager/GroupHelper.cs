@@ -139,5 +139,10 @@ namespace WebAddressbookTests
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;
         }
+
+        public bool IsGroupPresent()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + (1) + "]"));
+        }
     }
 }

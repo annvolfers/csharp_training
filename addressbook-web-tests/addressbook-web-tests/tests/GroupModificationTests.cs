@@ -18,7 +18,7 @@ namespace WebAddressbookTests
             newData.Footer = null;
             
             List<GroupDate> oldGroups = app.Groups.GetGroupList();
-            if (oldGroups.Count == 0)
+            if (!app.Groups.IsGroupPresent())
             {
                 GroupDate group = new GroupDate("aaa");
                 group.Header = "sss";

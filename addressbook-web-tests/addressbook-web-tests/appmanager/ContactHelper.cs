@@ -183,5 +183,10 @@ namespace WebAddressbookTests
         {
             return driver.FindElements(By.Name("entry")).Count;
         }
+
+        public bool IsContactPresent()
+        {
+            return IsElementPresent(By.XPath("(//img[@alt='Edit'])[" + (1) + "]"));
+        }
     }
 }

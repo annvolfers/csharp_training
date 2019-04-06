@@ -16,6 +16,12 @@ namespace WebAddressbookTests
             ContactDate newData = new ContactDate("eee", "rrr");
 
             List<ContactDate> oldContacts = app.Contact.GetContactList();
+            if (!app.Contact.IsContactPresent())
+            {
+                ContactDate contact = new ContactDate("qqq", "www");
+                app.Contact.Create(contact);
+                oldContacts = app.Contact.GetContactList();
+            }
             ContactDate oldData = oldContacts[0];
 
             app.Contact.Modify(0, newData);

@@ -14,6 +14,12 @@ namespace WebAddressbookTests
         public void ContactRemovalTest()
         {
             List<ContactDate> oldContacts = app.Contact.GetContactList();
+            if (!app.Contact.IsContactPresent())
+            {
+                ContactDate contact = new ContactDate("qqq", "www");
+                app.Contact.Create(contact);
+                oldContacts = app.Contact.GetContactList();
+            }
 
             app.Contact.Remove(0);
 
