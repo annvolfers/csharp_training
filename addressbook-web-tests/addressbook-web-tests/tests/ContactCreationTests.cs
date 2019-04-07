@@ -107,6 +107,15 @@ namespace WebAddressbookTests
             System.Console.Out.WriteLine(end.Subtract(start));
         }
 
+        [Test]
+        public void TestDBConnectivity()
+        {
+            foreach (ContactDate contact in GroupDate.GetAll()[1].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+        }
+
         /*[Test]
         public void EmptyContactCreationTest()
         {
