@@ -8,6 +8,10 @@ namespace WebAddressbookTests
 {
     public class GroupDate : IEquatable<GroupDate>, IComparable<GroupDate>
     {
+        public GroupDate()
+        {
+        }
+
         public GroupDate (string name)
         {
             Name = name;

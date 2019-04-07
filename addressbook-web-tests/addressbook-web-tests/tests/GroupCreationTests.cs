@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -21,11 +26,63 @@ namespace WebAddressbookTests
                     Footer = GenerateRandomString(100)
                 });
             }
-
             return groups;
         }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupDate> GroupDataFromCsvFile()
+        {
+            List<GroupDate> groups = new List<GroupDate>();
+            string [] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new GroupDate(parts[0])
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
+            return groups;
+        }
+
+        public static IEnumerable<GroupDate> GroupDataFromXmlFile()
+        {
+            List<GroupDate> groups = new List<GroupDate>();
+            return (List<GroupDate>)
+                new XmlSerializer(typeof(List<GroupDate>))
+                    .Deserialize(new StreamReader(@"groups.xml"));
+        }
+
+        public static IEnumerable<GroupDate> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupDate>>(
+                File.ReadAllText(@"groups.json"));
+        }
+
+        public static IEnumerable<GroupDate> GroupDataFromExcelFile()
+        {
+            List<GroupDate> groups = new List<GroupDate>();
+            Excel.Application app = new Excel.Application();
+            app.Visible = true;
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlxs"));
+            Excel.Worksheet sheet = wb.Sheets[1];
+            Excel.Range range = sheet.UsedRange;
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                groups.Add(new GroupDate()
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
+                });
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupDate group)
         {
             /*GroupDate group = new GroupDate("aaa");
