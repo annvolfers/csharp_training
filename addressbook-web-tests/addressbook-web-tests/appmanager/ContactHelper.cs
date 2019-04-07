@@ -37,10 +37,29 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactDate oldData, ContactDate newData)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToPageContactModification(oldData.Id);
+            FillContactForm(newData);
+            SubmitContactModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
             SelectContactRemove(v);
+            SubmitContactRemove();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactDate contact)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContactRemove(contact.Id);
             SubmitContactRemove();
             manager.Navigator.ReturnToHomePage();
             return this;
@@ -82,6 +101,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper GoToPageContactModification(string id)
+        {
+            driver.FindElement(By.XPath("//a[@href='edit.php?id=" + id + "']")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactRemove()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -95,6 +120,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContactRemove(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContactRemove(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
 
@@ -291,6 +322,7 @@ namespace WebAddressbookTests
 
         public bool IsContactPresent()
         {
+            manager.Navigator.GoToHomePage();
             return IsElementPresent(By.XPath("(//img[@alt='Edit'])[" + (1) + "]"));
         }
     }

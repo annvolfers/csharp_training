@@ -9,11 +9,12 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupDate> RandomGroupDataProvider()
         {
@@ -82,24 +83,38 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupDate group)
         {
             /*GroupDate group = new GroupDate("aaa");
             group.Header = "sss";
             group.Footer = "ddd";*/
 
-            List<GroupDate> oldGroups = app.Groups.GetGroupList();
+            List<GroupDate> oldGroups = GroupDate.GetAll();
 
             app.Groups.Create(group);
             
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupDate> newGroups = app.Groups.GetGroupList();
+            List<GroupDate> newGroups = GroupDate.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBConnectivityGroups()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupDate> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupDate> fromDb = GroupDate.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
 
         /*[Test]
