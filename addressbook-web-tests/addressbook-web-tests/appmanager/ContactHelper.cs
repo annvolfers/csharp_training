@@ -290,26 +290,15 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
                 foreach (IWebElement element in elements)
                 {
-                    /*if (element.Text.Length > 0)
+                    string[] words = new string[element.FindElements(By.TagName("td")).Count];
+                    for (int i = 0; i < words.Length; i++)
                     {
-                        string[] words = element.Text.Split(new char[] { ' ' });
-                        contactCache.Add(new ContactDate(words[1], words[0]));
-                    }*/
-                    if (element.Text.Length > 0)
-                    {
-                        string[] words = new string[element.FindElements(By.TagName("td")).Count];
-                        for (int i = 0; i < words.Length; i++)
-                        {
-                            words[i] = element.FindElements(By.TagName("td"))[i].Text;
-                        }
-                        contactCache.Add(new ContactDate(words[2], words[1]) {
-                            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                        });
+                        words[i] = element.FindElements(By.TagName("td"))[i].Text;
                     }
-                    else
+                    contactCache.Add(new ContactDate(words[2], words[1])
                     {
-                        contactCache.Add(new ContactDate("", ""));
-                    }
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
                 }
             }
             return new List<ContactDate>(contactCache);
