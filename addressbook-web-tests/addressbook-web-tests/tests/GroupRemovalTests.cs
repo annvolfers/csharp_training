@@ -13,23 +13,21 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            //List<GroupDate> oldGroups = app.Groups.GetGroupList();
-            List<GroupDate> oldGroups = GroupDate.GetAll();
+            List<GroupDate> oldGroups = new List<GroupDate>();
             if (!app.Groups.IsGroupPresent())
             {
                 GroupDate group = new GroupDate("aaa");
                 group.Header = "sss";
                 group.Footer = "ddd";
                 app.Groups.Create(group);
-                oldGroups = app.Groups.GetGroupList();
             }
+            oldGroups = GroupDate.GetAll();
             GroupDate toBeRemoved = oldGroups[0];
 
             app.Groups.Remove(toBeRemoved);
 
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
-            //List<GroupDate> newGroups = app.Groups.GetGroupList();
             List<GroupDate> newGroups = GroupDate.GetAll();
 
             oldGroups.RemoveAt(0);

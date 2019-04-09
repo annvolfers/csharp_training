@@ -14,26 +14,21 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             ContactDate newData = new ContactDate("eee", "rrr");
-
-            //List<ContactDate> oldContacts = app.Contact.GetContactList();////
-            List<ContactDate> oldContacts = ContactDate.GetAll();////
+            
+            List<ContactDate> oldContacts = new List<ContactDate>();
             if (!app.Contact.IsContactPresent())
             {
                 ContactDate contact = new ContactDate("qqq", "www");
                 app.Contact.Create(contact);
-                oldContacts = app.Contact.GetContactList();
             }
-            ContactDate oldData = oldContacts[0];////
-
-            //app.Contact.Modify(0, newData);////
-            app.Contact.Modify(oldData, newData);////
-
-            //ContactDate oldData = oldContacts[0];////
+            oldContacts = ContactDate.GetAll();
+            ContactDate oldData = oldContacts[0];
+            
+            app.Contact.Modify(oldData, newData);
 
             Assert.AreEqual(oldContacts.Count, app.Contact.GetContactCount());
-
-            //List<ContactDate> newContacts = app.Contact.GetContactList();////
-            List<ContactDate> newContacts = ContactDate.GetAll();////
+            
+            List<ContactDate> newContacts = ContactDate.GetAll();
             oldContacts[0].First_name = newData.First_name;
             oldContacts[0].Last_name = newData.Last_name;
             oldContacts.Sort();
