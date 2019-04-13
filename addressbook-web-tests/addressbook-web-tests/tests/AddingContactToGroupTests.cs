@@ -12,9 +12,27 @@ namespace WebAddressbookTests
         [Test]
         public void AddingContactToGroupTest()
         {
-            GroupDate group = GroupDate.GetAll()[0];
+            GroupDate group = new GroupDate();
+            ContactDate contact = new ContactDate();
+            
+            if (!app.Groups.IsGroupPresent())
+            {
+                group = new GroupDate("aaa");
+                group.Header = "sss";
+                group.Footer = "ddd";
+                app.Groups.Create(group);
+            }
+
+            group = GroupDate.GetAll()[0];
             List<ContactDate> oldList = group.GetContacts();
-            ContactDate contact = ContactDate.GetAll().Except(oldList).First();
+            
+            if (!app.Contact.IsContactPresent() || group.GetContactsNotInGroups().Count == 0) 
+            {
+                contact = new ContactDate("qqq", "www");
+                app.Contact.Create(contact);
+            }
+
+            contact = ContactDate.GetAll().Except(oldList).First();///ошибка
 
             app.Contact.AddContactToGroup(contact, group);
 

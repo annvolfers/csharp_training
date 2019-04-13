@@ -12,9 +12,26 @@ namespace WebAddressbookTests
         [Test]
         public void DeleteContactFromGroupTest()
         {
-            GroupDate group = GroupDate.GetAll()[0];
+            GroupDate group = new GroupDate();
+            ContactDate contact = new ContactDate();
+            
+            if (!app.Groups.IsGroupPresent())
+            {
+                group = new GroupDate("aaa");
+                group.Header = "sss";
+                group.Footer = "ddd";
+                app.Groups.Create(group);
+            }
+            
+            if (!app.Contact.IsContactPresent())
+            {
+                contact = new ContactDate("qqq", "www");
+                app.Contact.Create(contact);
+            }
+
+            group = GroupDate.GetAll()[0];
             List<ContactDate> oldList = group.GetContacts();
-            ContactDate contact = ContactDate.GetAll().First();
+            contact = ContactDate.GetAll().First();
             if (oldList.Count == 0)
             {
                 app.Contact.AddContactToGroup(contact, group);

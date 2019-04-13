@@ -80,5 +80,17 @@ namespace WebAddressbookTests
                         select c).Distinct().ToList();
             }
         }
+
+        public List<ContactDate> GetContactsNotInGroups()
+        {
+            //select * from addressbook where addressbook.deprecated = '0000-00-00 00:00:00' 
+            //and not exists (select * from address_in_groups where address_in_groups.id = addressbook.id)
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(c => c.Deprecated == "0000-00-00 00:00:00")
+                        where !db.GCR.Any(g => (g.ContactId == c.Id))
+                        select c).Distinct().ToList();
+            }
+        }
     }
 }
