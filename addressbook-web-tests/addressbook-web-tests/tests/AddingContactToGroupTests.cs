@@ -24,13 +24,15 @@ namespace WebAddressbookTests
             }
 
             group = GroupDate.GetAll()[0];
-            List<ContactDate> oldList = group.GetContacts();
-            
+            //List<ContactDate> oldList = group.GetContacts();
+
             if (!app.Contact.IsContactPresent() || group.GetContactsNotInGroups().Count == 0) 
             {
                 contact = new ContactDate("qqq", "www");
                 app.Contact.Create(contact);
             }
+            
+            List<ContactDate> oldList = group.GetContacts();///
 
             contact = ContactDate.GetAll().Except(oldList).First();///ошибка
 
