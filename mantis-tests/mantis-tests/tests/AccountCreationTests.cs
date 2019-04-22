@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using System.IO;
 
+
 namespace mantis_tests
 {
     [TestFixture]
@@ -23,17 +24,24 @@ namespace mantis_tests
         [Test]
         public void AccountRegistrationTest()
         {
-            /*AccountData account = new AccountData()
+            AccountData account = new AccountData()
             {
                 Name = "testuse1r",
                 Password = "password",
                 Email = "testuser1@localhost.localdomain"
             };
 
+            List<AccountData> accounts = app.Admin.GetAllAccounts();
+            AccountData existingAccount = accounts.Find(x => x.Name == account.Name);
+            if (existingAccount != null)
+            {
+                app.Admin.DeleteAccount(existingAccount);
+            }
+
             app.James.delete(account);
             app.James.Add(account);
 
-            app.Registration.Register(account);*/
+            app.Registration.Register(account);
         }
 
         [TearDown]

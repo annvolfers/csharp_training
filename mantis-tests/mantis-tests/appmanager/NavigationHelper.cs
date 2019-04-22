@@ -20,7 +20,7 @@ namespace mantis_tests
 
         public void GoToManageProjectPage()
         {
-            if (driver.Url == baseURL + "manage_proj_page.php")
+            if (driver.Url == baseURL + "/manage_proj_page.php")
             {
                 return;
             }
