@@ -24,7 +24,6 @@ namespace WebAddressbookTests
             }
 
             group = GroupDate.GetAll()[0];
-            //List<ContactDate> oldList = group.GetContacts();
 
             if (!app.Contact.IsContactPresent() || group.GetContactsNotInGroups().Count == 0) 
             {
@@ -32,9 +31,9 @@ namespace WebAddressbookTests
                 app.Contact.Create(contact);
             }
             
-            List<ContactDate> oldList = group.GetContacts();///
+            List<ContactDate> oldList = group.GetContacts();
 
-            contact = ContactDate.GetAll().Except(oldList).First();///ошибка
+            contact = ContactDate.GetAll().Except(oldList).First();
 
             app.Contact.AddContactToGroup(contact, group);
 

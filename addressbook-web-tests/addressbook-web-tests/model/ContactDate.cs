@@ -47,6 +47,11 @@ namespace WebAddressbookTests
             return Last_name.GetHashCode();
         }
 
+        public override int GetHashCode()
+        {
+            return Last_name.GetHashCode();
+        }
+
         public override string ToString()
         {
             return "\nfirst_name=" + First_name + "\nlast_name=" + Last_name;
