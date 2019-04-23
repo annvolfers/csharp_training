@@ -138,7 +138,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Service References\Mantis\mantisconnect.wsdl" />
+    <None Include="Service References\Mantis\mantisconnect1.wsdl" />
     <None Include="Service References\Mantis\mantis_tests.Mantis.AccountData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
